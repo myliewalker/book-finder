@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Book Finder</title>
+    <!-- Bootstrap -->
+             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Linking CSS -->
+			 <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+			 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+<div class="container">
+      <!-- Jumbotron Title -->
+      <div class="jumbotron">
+        <h1 class="text-center">Find Your Perfect Book</h1>
+      </div>
+      <div class="description">
+        <p>Are you looking for the perfect read?</p>
+      </div>
+
+      <!-- Suggest a Book -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Book Information</h3>
+            </div>
+            <div class="panel-body">
+              <form>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input class="form-control" id="title" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input class="form-control" id="author" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="genre">Genre</label>
+                    <input class="form-control" id="genre" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input class="form-control" id="description" type="text">
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Input Interests-->
+          <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Your Ideal Book</h3>
+              </div>
+              <div class="panel-body">
+                <div class="description">
+                    <p>Genre</p>
+                </div>
+                <!-- <form> -->
+                  <div class="form-group">
+                    <label class="container">Mystery
+                      <input class="form-control" id="calling" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Romance
+                      <input class="form-control" id="media" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Classic
+                      <input class="form-control" id="fundraising" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    </div>
+                    <label class="container">Nonfiction
+                      <input class="form-control" id="fundraising" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    </div>
+                    <br>
+                <div class="description">
+                    <p>Age Range</p>
+                </div>
+                <!-- <form> -->
+                  <div class="form-group">
+                    <label class="container">Children's
+                      <input class="form-control" id="calling" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Young Adult
+                      <input class="form-control" id="media" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Adult
+                      <input class="form-control" id="fundraising" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    </div>
+                    <br>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+</div>
+
+    <!-- JavaScript -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    
+       <!-- Moment js -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
