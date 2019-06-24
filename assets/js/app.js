@@ -33,19 +33,20 @@ $(document).ready(function(){
         if(document.getElementById('nonfiction').checked) {
             genre.push('nonfiction');
         }
-        let age;
+        let age = '';
         if(document.getElementById('kid').checked) {
           age = 'kid';
         }
         else if(document.getElementById('young').checked) {
           age = 'young';
         }
-        else age = 'adult';
-        if (!genre && age || genre && !age) {
+        else if(document.getElementById('young').checked) {
+            age = 'young';
+        }
+        if (genre.length == 0 || age == '') {
             alert('Please complete all sections of the form.')
             return false;
         }
-
         let characteristics = {
             genre: genre,
             age: age
@@ -55,23 +56,23 @@ $(document).ready(function(){
         let ntitle = $("#ntitle").val();
         let nauthor = $("#nauthor").val();
         let ngenre = [];
-        if(document.getElementById('mystery').checked) {
+        if(document.getElementById('nmystery').checked) {
           ngenre.push('mystery');
         }
-        if(document.getElementById('romance').checked) {
+        if(document.getElementById('nromance').checked) {
           ngenre.push('romance');
         }
-        if(document.getElementById('classic').checked) {
+        if(document.getElementById('nclassic').checked) {
           ngenre.push('classic');
         }
-        if(document.getElementById('nonfiction').checked) {
+        if(document.getElementById('nnonfiction').checked) {
             ngenre.push('nonfiction');
         }
         let nage;
-        if(document.getElementById('kid').checked) {
+        if(document.getElementById('nkid').checked) {
           nage = 'kid';
         }
-        else if(document.getElementById('young').checked) {
+        else if(document.getElementById('nyoung').checked) {
           nage = 'young';
         }
         else nage = 'adult';
