@@ -2,39 +2,37 @@ $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
    var config = {
-    apiKey: "AIzaSyBEqLaREsvuoIpsuXMkORKnST1JLboUHU0",
-    authDomain: "volunteer-project-932da.firebaseapp.com",
-    databaseURL: "https://volunteer-project-932da.firebaseio.com",
-    projectId: "volunteer-project-932da",
+    apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
+    authDomain: "book-finder-6cc03.firebaseapp.com",
+    databaseURL: "https://book-finder-6cc03.firebaseio.com",
+    projectId: "book-finder-6cc03",
     storageBucket: "",
-    messagingSenderId: "608058845701"
+    messagingSenderId: "893603769974"
   };
   firebase.initializeApp(config);
-  
-  
+
   
   // holds the firebase the data
   var database = firebase.database();
-  
       // button for adding adding volunteers
       $("#submit").on("click", function(event) {
-        // Don't refresh the page!
         event.preventDefault();
         console.log("working");
   
       // Grabs user data entered into the form controls
-        let genre;
+        let genre = [];
         if(document.getElementById('mystery').checked) {
-          genre = 'mystery';
+          genre.push('mystery');
         }
-        else if(document.getElementById('romance').checked) {
-          genre = 'romance';
+        if(document.getElementById('romance').checked) {
+          genre.push('romance');
         }
-        else if(document.getElementById('classic').checked) {
-          genre = 'classic';
+        if(document.getElementById('classic').checked) {
+          genre.push('classic');
         }
-        else genre = 'nonfiction';
-
+        if(document.getElementById('nonfiction').checked) {
+            genre.push('nonfiction');
+        }
         let age;
         if(document.getElementById('kid').checked) {
           age = 'kid';
@@ -43,11 +41,40 @@ $(document).ready(function(){
           age = 'young';
         }
         else age = 'adult';
+        if (!genre && age || genre && !age) {
+            alert('Please complete all sections of the form.')
+            return false;
+        }
+
+        let characteristics = {
+            genre: genre,
+            age: age
+        }
       
       // Adds book suggestion to bank
         let ntitle = $("#ntitle").val();
         let nauthor = $("#nauthor").val();
-        let ngenre = $("#ngenre").val();
+        let ngenre = [];
+        if(document.getElementById('mystery').checked) {
+          ngenre.push('mystery');
+        }
+        if(document.getElementById('romance').checked) {
+          ngenre.push('romance');
+        }
+        if(document.getElementById('classic').checked) {
+          ngenre.push('classic');
+        }
+        if(document.getElementById('nonfiction').checked) {
+            ngenre.push('nonfiction');
+        }
+        let nage;
+        if(document.getElementById('kid').checked) {
+          nage = 'kid';
+        }
+        else if(document.getElementById('young').checked) {
+          nage = 'young';
+        }
+        else nage = 'adult';
         let ndescription = $("#ndescription").val();
         let count = 0;
         if (ntitle) count++;
@@ -59,7 +86,7 @@ $(document).ready(function(){
           return false;
         }
   
-        var newBook = {
+        let newBook = {
           title: ntitle,
           author: nauthor,
           genre: ngenre,
@@ -91,19 +118,7 @@ $(document).ready(function(){
     });
   
       // Firebase watcher + initial loader HINT: .on("value")
-      database.ref().on("child_added", function(childSnapshot, prevChildKey){
-  
+      database.ref().on("child_added", function(childSnapshot){
           console.log(childSnapshot.val());
-  
-  
-      // Stores everything into a variable.
-      var tbirthday = childSnapshot.val().birthday;
-      var temail = childSnapshot.val().email;
-      var tfirstname = childSnapshot.val().firstname;
-      var tlastname = childSnapshot.val().lastname;
-      var tmiddlename = childSnapshot.val().middlename;
-      var tphonenumber = childSnapshot.val().phonenumber;
-      var tinterests = childSnapshot.val().interests;
-  
     });
   });
