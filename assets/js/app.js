@@ -111,10 +111,29 @@ $(document).ready(function(){
           description: ndescription
         }
 
-        //TODO: check if database contains the new book
-        database.ref().push(newBook);
+      //Checks if the book is in the database
+      let found = false;;
+      database.ref().on('value', function(snapshot) {
+        let entries = Object.keys(snapshot.val());
+        for (let bk of entries) {
+          if (bk.child("title").val() == newBook.title) {
+            found = true;
+            if (bk.child("genre").val().sort() != newBook.genre.sort()) {
+              newBook.genre.forEach(gen => function() {
+                if (bk.child("genre").val().contains(gen)) {
+                  bk.child("genre").push(gen);
+                }
+              });
+            }
+            bk.child("description").push(newBook.description);
+            break;
+          }
+        } 
+      });
 
-    // console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
+      if (!found) database.ref().push(newBook);
+
+    console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
     module.exports = {
       target: characteristics,
       suggestion: newBook
