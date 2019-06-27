@@ -1,30 +1,41 @@
-//get values from firebase and store it into books
-let newBook = function () {
-    let tBook = require("app.js");
-    console.log(tBook);
-    return tBook;
-}
-books.push(newBook);
-
-let entry;
-
-//determine which books match
-let correctGenre = books.filter(book => 
-    book.genre.some(g => function() {
-        for (let gen of entry.genre) {
-            if (g == gen) return true;
+$(document).ready(function(){
+    
+    let database = firebase.database();
+    
+    $("#submit").on("click", function() {
+        let books = database.data;
+        let target = require('./app').target;
+        let suggestion = require('./app').suggestion;
+        
+        if (!target && suggestion) return false;
+        if(target && suggestion) {
+            books.pop();
         }
-        return false;
-    }));
-let relevant = correntGenre.filter(book => 
-    book.age == entry.age);
 
-//sort the matching books
-relevant.sort(function(a, b) {
-    if (a.author > b.author) return 1;
-    if (a.author < b.author) return -1;
-    if (a.title > b.title) return 1; 
-    return -1;
-})
+        //Check that genres match
+        let correctGenre = books.filter(book => 
+            book.genre.some(g => function() {
+                if (g == target.genre) return true;
+                return false;
+            }));
+        //Check that age matches
+        let relevant = correctGenre.filter(book => book.age == target.age);
 
-alert(relevant.toString);
+        //Sort the matching books by author last name
+        relevant.sort(function(a, b) {
+            let res = compare(a.author.last, b.author.last);
+            if (res != 0) return res;
+            res = compare(a.author.first, a.author.last);
+            if (res != 0) return res;
+            return compare(a.title, b.title);
+        })
+        function compare(a, b) {
+            if (a > b) return 1;
+            if (a < b) return -1;
+            if (a == b) return 0;
+        }
+
+    alert(relevant.toString);
+    });
+
+});

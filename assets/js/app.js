@@ -1,7 +1,7 @@
 $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
-   var config = {
+   let config = {
     apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
     authDomain: "book-finder-6cc03.firebaseapp.com",
     databaseURL: "https://book-finder-6cc03.firebaseio.com",
@@ -13,7 +13,7 @@ $(document).ready(function(){
 
   
   // holds the firebase the data
-  var database = firebase.database();
+  let database = firebase.database();
       // button for adding adding volunteers
       $("#submit").on("click", function(event) {
         event.preventDefault();
@@ -54,7 +54,15 @@ $(document).ready(function(){
       
       // Adds book suggestion to bank
         let ntitle = $("#ntitle").val();
-        let nauthor = $("#nauthor").val();
+        let tempAuthor = $("#nauthor").val();
+        if (!tempAuthor.contains(" ")) {
+          alert("Please enter the author's first and last name");
+          return false;
+        }
+        let nauthor = {
+          first: tempAuthor.split(" ")[0],
+          last: tempAuthor.split(" ")[1]
+        }
         let ngenre = [];
         if(document.getElementById('nmystery').checked) {
           ngenre.push('mystery');
@@ -103,10 +111,14 @@ $(document).ready(function(){
           description: ndescription
         }
 
+        //TODO: check if database contains the new book
         database.ref().push(newBook);
 
-    console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
-    // module.exports.newBook = newBook;
+    // console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
+    module.exports = {
+      target: characteristics,
+      suggestion: newBook
+    }
 
   // Clears all of the inputs
     $("#ntitle").val("");
