@@ -19,7 +19,7 @@ $(document).ready(function(){
         event.preventDefault();
         console.log("working");
   
-      // Grabs user data entered into the form controls
+      // Grabs user data entered into book finder
         let genre = [];
         if(document.getElementById('mystery').checked) {
           genre.push('mystery');
@@ -33,18 +33,18 @@ $(document).ready(function(){
         if(document.getElementById('nonfiction').checked) {
             genre.push('nonfiction');
         }
-        let age = '';
+        let age;
         if(document.getElementById('kid').checked) {
           age = 'kid';
         }
         else if(document.getElementById('young').checked) {
           age = 'young';
         }
-        else if(document.getElementById('young').checked) {
-            age = 'young';
+        else if(document.getElementById('adult').checked) {
+          age = 'adult';
         }
-        if (genre.length == 0 || age == '') {
-            alert('Please complete all sections of the form.')
+        if (genre.length == 0 && age || genre.length > 0 && !age) {
+            alert('Please complete all sections of finder.')
             return false;
         }
         let characteristics = {
@@ -75,18 +75,28 @@ $(document).ready(function(){
         else if(document.getElementById('nyoung').checked) {
           nage = 'young';
         }
-        else nage = 'adult';
+        else if(document.getElementById('nadult').checked) {
+          nage = 'adult';
+        }
+        alert(nage);
         let ndescription = $("#ndescription").val();
         let count = 0;
         if (ntitle) count++;
         if (nauthor) count++;
-        if (ngenre) count++;
+        if (ngenre.length > 0) count++;
+        if (nage) count++;
         if (ndescription) count++;
-        if (count != 0 && count != 4) {
-          alert('Please complete the entire form.');
+        alert(count);
+        if (count != 0 && count != 5) {
+          alert('Please complete your entire suggestion.');
           return false;
         }
-  
+
+        //Validate form data
+        if (count == 0 && genre.length == 0) {
+          alert('Please complete this form.');
+        }
+
         let newBook = {
           title: ntitle,
           author: nauthor,
