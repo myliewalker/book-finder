@@ -78,7 +78,6 @@ $(document).ready(function(){
         else if(document.getElementById('nadult').checked) {
           nage = 'adult';
         }
-        alert(nage);
         let ndescription = $("#ndescription").val();
         let count = 0;
         if (ntitle) count++;
@@ -86,7 +85,6 @@ $(document).ready(function(){
         if (ngenre.length > 0) count++;
         if (nage) count++;
         if (ndescription) count++;
-        alert(count);
         if (count != 0 && count != 5) {
           alert('Please complete your entire suggestion.');
           return false;
@@ -101,21 +99,27 @@ $(document).ready(function(){
           title: ntitle,
           author: nauthor,
           genre: ngenre,
-          description: ndescription,
-          age: nage
+          age: nage,
+          description: ndescription
         }
-  
-        database.ref().push(newBook);
-  
-    console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
-    module.exports.newBook = newBook;
 
-  
+        database.ref().push(newBook);
+
+    console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
+    // module.exports.newBook = newBook;
+
   // Clears all of the inputs
     $("#ntitle").val("");
     $("#nauthor").val("");
     $("#ngenre").val("");
     $("#ndescription").val("");
+    $('#nmystery').prop('checked', false)
+    $('#nromance').prop('checked', false)
+    $('#nclassic').prop('checked', false)
+    $('#nnonfiction').prop('checked', false)
+    $('#nkid').prop('checked', false)
+    $('#nyoung').prop('checked', false)
+    $('#nadult').prop('checked', false)
     $('#mystery').prop('checked', false)
     $('#romance').prop('checked', false)
     $('#classic').prop('checked', false)
@@ -131,5 +135,5 @@ $(document).ready(function(){
       // Firebase watcher + initial loader HINT: .on("value")
       database.ref().on("child_added", function(childSnapshot){
           console.log(childSnapshot.val());
-    });
+      });
   });
