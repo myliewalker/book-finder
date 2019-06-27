@@ -103,14 +103,14 @@ body {
 }
 
 /* hide default checkbox */
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"]{
     display: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
-.checkmark {
+.checkmark, .radio{
     position: absolute;
     top: 0;
     left: 0;
@@ -121,18 +121,18 @@ input[type="checkbox"] {
     border-width: 2px;
 }
 
-.checkmark:after {
+.checkmark:after, .radio:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.container input:checked ~ .checkmark:after {
+.container input:checked ~ .checkmark:after, .container input:checked ~ .radio:after {
     display: block;
 }
 
 /* checkmark style */
-.container .checkmark:after {
+.container .checkmark:after, .radio:after {
     left: 5px;
     top: 2px;
     width: 6px;

@@ -35,6 +35,7 @@ $(document).ready(function(){
             if (a == b) return 0;
         }
 
+    //TODO: display the book
     alert(relevant.toString);
     });
 

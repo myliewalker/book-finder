@@ -32,11 +32,9 @@
                 <h3 class="panel-title">Your Ideal Book</h3>
               </div>
               <div class="panel-body">
-                <div class="description">
-                    <p>Genre</p>
-                </div>
                 <!-- <form> -->
                 <form>
+                  <label>Genre</label>
                   <div class="form-group">
                     <label class="container">Mystery
                       <input class="form-control" id="mystery" type="checkbox">
@@ -50,33 +48,27 @@
                       <input class="form-control" id="classic" type="checkbox">
                       <span class="checkmark"></span>
                     </label>
-                    </div>
                     <label class="container">Nonfiction
                       <input class="form-control" id="nonfiction" type="checkbox">
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                    <br>
-                <div class="description">
-                    <p>Age Range</p>
-                </div>
-                <!-- <form> -->
-                  <div class="form-group">
+                <label>Age</label>
+                <div class="form-group">
                     <label class="container">Children's
-                      <input class="form-control" id="kid" type="radio">
+                      <input class="form-control" name="age" id="kid" type="radio">
                       <span class="radio"></span>
                     </label>
                     <label class="container">Young Adult
-                      <input class="form-control" id="young" type="radio">
+                      <input class="form-control" name="age" id="young" type="radio">
                       <span class="radio"></span>
                     </label>
                     <label class="container">Adult
-                      <input class="form-control" id="adult" type="radio">
+                      <input class="form-control" name="age" id="adult" type="radio">
                       <span class="radio"></span>
                     </label>
-                  </div>
-              </div>
-            </form>
+                </div>
+              </form>
             </div>
             </div>
             </div>
@@ -99,8 +91,8 @@
                     <label for="nauthor">Author</label>
                     <input class="form-control" id="nauthor" type="text">
                 </div>
+                <label>Genre</label>
                 <div class="form-group">
-                    <label class="container">Genres</label>
                     <label class="container">Mystery
                       <input class="form-control" id="nmystery" type="checkbox">
                       <span class="checkmark"></span>
@@ -113,27 +105,23 @@
                       <input class="form-control" id="nclassic" type="checkbox">
                       <span class="checkmark"></span>
                     </label>
-                    </div>
                     <label class="container">Nonfiction
                       <input class="form-control" id="nnonfiction" type="checkbox">
                       <span class="checkmark"></span>
                     </label> 
                 </div>
-                <div class="description">
-                    <p>Age Range</p>
-                </div>
-                <!-- <form> -->
+                <label>Age</label>
                 <div class="form-group">
                     <label class="container">Children's
-                      <input class="form-control" id="nkid" type="radio">
+                      <input class="form-control" name="nage" id="nkid" type="radio">
                       <span class="radio"></span>
                     </label>
                     <label class="container">Young Adult
-                      <input class="form-control" id="nyoung" type="radio">
+                      <input class="form-control" name="nage" id="nyoung" type="radio">
                       <span class="radio"></span>
                     </label>
                     <label class="container">Adult
-                      <input class="form-control" id="nadult" type="radio">
+                      <input class="form-control" name="nage" id="nadult" type="radio">
                       <span class="radio"></span>
                     </label>
                 </div>
@@ -141,9 +129,9 @@
                     <label for="ndescription">Description</label>
                     <input class="form-control" id="ndescription" type="text">
                 </div>
-                <button class="btn btn-primary" id="submit" type="submit">Submit</button>
               </form>
             </div>
+            <button class="btn btn-primary" id="submit" type="submit">Submit</button>
           </div>
           </div>
         </div>
