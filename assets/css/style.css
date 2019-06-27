@@ -24,70 +24,6 @@ body {
     font-size: 15px;  
 }
 
-.description {
-    padding-top: 50px;
-    font-weight: 800;
-    font-size: 30px;
-    color: #040404;
-    text-align: center;
-    max-width: 1000px;
-    padding-bottom: 20px;
-}
-
-.description #join {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-size: 50px;
-    color: maroon;
-}
-
-.desc {
-    font-size: 20px;
-    font-weight: bolder;
-    color: maroon;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.col-lg-6, .panel, .panel-default{
-    outline: none;
-    background-color: white;
-}
-
-.panel-default>.panel-heading {
-    border-color:maroon;
-    border-style: dotted;
-    border-width: 1.5px;
-    border-radius: 25px;
-
-    background-color: #c2b490;
-    color:maroon;
-    font-family: 'Bodini MT', Didot;
-    text-align: center;
-}
-
-.panel-body {
-    font-family: 'Bodini MT', Didot;
-}
-.form-control {
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 0px;
-    border-color: maroon;
-    position: relative;
-}
-
-.form-control:focus {
-    outline: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 0px;
-    border-color: maroon;
-}
-
 .container {
     display: block;
     position: relative;
@@ -102,6 +38,70 @@ body {
     user-select: none;
 }
 
+/* Text format */
+.description {
+    padding-top: 50px;
+    font-weight: 800;
+    font-size: 30px;
+    color: #040404;
+    text-align: center;
+    max-width: 1000px;
+    padding-bottom: 20px;
+}
+.description #join {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 50px;
+    color: maroon;
+}
+.desc {
+    font-size: 20px;
+    font-weight: bolder;
+    color: maroon;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Form format */
+.panel-default>.panel-heading {
+    border-color:maroon;
+    border-style: dotted;
+    border-width: 1.5px;
+    border-radius: 25px;
+
+    background-color: #c2b490;
+    color:maroon;
+    font-family: 'Bodini MT', Didot;
+    text-align: center;
+}
+.panel-body {
+    font-family: 'Bodini MT', Didot;
+}
+
+.col-lg-6, .panel, .panel-default{
+    outline: none;
+    -webkit-box-shadow: #040404;
+    box-shadow: #040404;
+    background-color: #dcdcdc;
+}
+
+.form-control {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 0px;
+    border-color: maroon;
+    position: relative;
+}
+.form-control:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 0px;
+    border-color: maroon;
+}
 /* hide default checkbox */
 input[type="checkbox"], input[type="radio"]{
     display: none;
@@ -109,7 +109,6 @@ input[type="checkbox"], input[type="radio"]{
     -moz-appearance: none;
     appearance: none;
 }
-
 .checkmark, .radio{
     position: absolute;
     top: 0;
@@ -120,17 +119,14 @@ input[type="checkbox"], input[type="radio"]{
     border-color: lightcoral;
     border-width: 1px;
 }
-
 .checkmark:after, .radio:after {
     content: "";
     position: absolute;
     display: none;
 }
-
 .container input:checked ~ .checkmark:after, .container input:checked ~ .radio:after {
     display: block;
 }
-
 /* checkmark style */
 .container .checkmark:after, .radio:after {
     left: 5px;
@@ -144,17 +140,17 @@ input[type="checkbox"], input[type="radio"]{
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
+/* button style */
 .btn {
     background-color: lightcoral;
     color: white;
     border-color: maroon;
+    margin-left: 45%;
+    width: 10%;
 }
-
 .btn:hover {
     background-color: maroon !important;
 }
-
 .btn:active {
     border: none !important;
     outline: 0 !important;
@@ -163,7 +159,6 @@ input[type="checkbox"], input[type="radio"]{
 
     background-color: maroon !important;
 }
-
 .btn:focus {
     background-color: lightcoral;
     border-color: maroon !important;

@@ -55,7 +55,7 @@ $(document).ready(function(){
       // Adds book suggestion to bank
         let ntitle = $("#ntitle").val();
         let tempAuthor = $("#nauthor").val();
-        if (!tempAuthor.contains(" ")) {
+        if (!tempAuthor.includes(" ")) {
           alert("Please enter the author's first and last name");
           return false;
         }
@@ -98,7 +98,7 @@ $(document).ready(function(){
           return false;
         }
 
-        //Validate form data
+        //Validates form data
         if (count == 0 && genre.length == 0) {
           alert('Please complete this form.');
         }
@@ -112,6 +112,7 @@ $(document).ready(function(){
         }
 
       //Checks if the book is in the database
+      //TODO: fix
       let found = false;;
       database.ref().on('value', function(snapshot) {
         let entries = Object.keys(snapshot.val());
