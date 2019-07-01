@@ -1,5 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-$(document).ready(function(){
+  'use strict';
+  $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
    let config = {
@@ -55,11 +56,12 @@ $(document).ready(function(){
         }
       
       // Adds book suggestion to bank
-        let ntitle = $("#ntitle").val();
+        let ntitle = $("#ntitle").val().toLowerCase();
         let tempAuthor = $("#nauthor").val();
+        tempAuthor.replace(/(\w+), (\w+)/, "$2 $1");
         let nauthor = {
-          first: tempAuthor.split(" ")[0],
-          last: tempAuthor.split(" ")[1]
+          first: tempAuthor.split(" ")[0].toLowerCase(),
+          last: tempAuthor.split(" ")[1].toLowerCase()
         }
         let ngenre = [];
         if(document.getElementById('nmystery').checked) {
@@ -104,7 +106,7 @@ $(document).ready(function(){
           return false;
         }
 
-        if (!tempAuthor.includes(" ")) {
+        if (!tempAuthor.includes(" ") && count == 5) {
           alert("Please enter the author's first and last name");
           module.exports.valid = false;
           return false;
@@ -120,30 +122,29 @@ $(document).ready(function(){
 
       //Checks if the book is in the database
       //TODO: fix
-      let found = false;;
-      database.ref().on('value', function(snapshot) {
-        let entries = Object.keys(snapshot.val());
-        for (let bk of entries) {
-          if (bk.child("title").val() == newBook.title) {
-            found = true;
-            if (bk.child("genre").val().sort() != newBook.genre.sort()) {
-              newBook.genre.forEach(gen => function() {
-                if (bk.child("genre").val().contains(gen)) {
-                  bk.child("genre").push(gen);
-                }
-              });
+      let found = false;
+      if (count == 5) {
+        database.ref().on('value', function(snapshot) {
+          let entries = Object.keys(snapshot.val());
+          for (let bk of entries) {
+            if (bk.child("title").val() == newBook.title) {
+              found = true;
+              if (bk.child("genre").val().sort() != newBook.genre.sort()) {
+                newBook.genre.forEach(gen => function() {
+                  if (bk.child("genre").val().contains(gen)) {
+                    bk.child("genre").push(gen);
+                  }
+                });
+              }
+              bk.child("description").push(newBook.description);
+              break;
             }
-            bk.child("description").push(newBook.description);
-            break;
-          }
-        } 
-      });
+          } 
+        });
+        if (!found) database.ref().push(newBook);
+      }
 
-      if (!found) database.ref().push(newBook);
-
-    console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
-    window.location.href="../pages/display.html";
-    
+    //Export values
     module.exports = {
       target: characteristics,
       suggestion: newBook,
@@ -169,6 +170,9 @@ $(document).ready(function(){
     $('#kid').prop('checked', false)
     $('#young').prop('checked', false)
     $('#adult').prop('checked', false)
+
+    //Go to match page
+    window.location.href="../pages/display.html";
   
     return false;
   
