@@ -1,3 +1,4 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
@@ -45,6 +46,7 @@ $(document).ready(function(){
         }
         if (genre.length == 0 && age || genre.length > 0 && !age) {
             alert('Please complete all sections of finder.')
+            module.exports.valid = false;
             return false;
         }
         let characteristics = {
@@ -55,10 +57,6 @@ $(document).ready(function(){
       // Adds book suggestion to bank
         let ntitle = $("#ntitle").val();
         let tempAuthor = $("#nauthor").val();
-        if (!tempAuthor.includes(" ")) {
-          alert("Please enter the author's first and last name");
-          return false;
-        }
         let nauthor = {
           first: tempAuthor.split(" ")[0],
           last: tempAuthor.split(" ")[1]
@@ -89,18 +87,27 @@ $(document).ready(function(){
         let ndescription = $("#ndescription").val();
         let count = 0;
         if (ntitle) count++;
-        if (nauthor) count++;
+        if (tempAuthor) count++;
         if (ngenre.length > 0) count++;
         if (nage) count++;
         if (ndescription) count++;
         if (count != 0 && count != 5) {
           alert('Please complete your entire suggestion.');
+          module.exports.valid = false;
           return false;
         }
 
         //Validates form data
         if (count == 0 && genre.length == 0) {
           alert('Please complete this form.');
+          module.exports.valid = false;
+          return false;
+        }
+
+        if (!tempAuthor.includes(" ")) {
+          alert("Please enter the author's first and last name");
+          module.exports.valid = false;
+          return false;
         }
 
         let newBook = {
@@ -135,10 +142,13 @@ $(document).ready(function(){
       if (!found) database.ref().push(newBook);
 
     console.log(newBook.title, newBook.author, newBook.genre, newBook.description, newBook.age);
+    window.location.href="../pages/display.html";
+    
     module.exports = {
       target: characteristics,
-      suggestion: newBook
-    }
+      suggestion: newBook,
+      valid: true
+    };
 
   // Clears all of the inputs
     $("#ntitle").val("");
@@ -169,3 +179,4 @@ $(document).ready(function(){
           console.log(childSnapshot.val());
       });
   });
+},{}]},{},[1]);
