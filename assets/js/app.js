@@ -21,6 +21,7 @@
         console.log("working");
   
       // Grabs user data entered into book finder
+        let search = false;
         let genre = [];
         if(document.getElementById('mystery').checked) {
           genre.push('mystery');
@@ -44,7 +45,8 @@
         else if(document.getElementById('adult').checked) {
           age = 'adult';
         }
-        if (genre.length == 0 && age || genre.length > 0 && !age) {
+        if (genre.length > 0 || age) search = true;
+        if (search && (genre.length == 0 || !age)) {
             alert('Please complete all sections of finder.')
             module.exports.valid = false;
             return false;
@@ -100,7 +102,7 @@
         }
 
         //Validates form data
-        if (count == 0 && genre.length == 0) {
+        if (count == 0 && search == false) {
           alert('Please complete this form.');
           module.exports.valid = false;
           return false;
@@ -108,6 +110,13 @@
         if (!tempAuthor.includes(" ") && count == 5) {
           alert("Please enter the author's first and last name");
           module.exports.valid = false;
+          return false;
+        }
+
+      //Return if a search
+        if (count == 0) {
+          clear();
+          window.location.href="../pages/display.html";
           return false;
         }
 
@@ -121,22 +130,19 @@
 
       //Checks if the book is in the database
         let found = 0;
-        if (count == 5) {
-          let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
-          ref.on("child_added", function(snapshot) {
-            found++;
-            if (found > 1) {
-              console.log('found!');
-              ref.append.parent().child('genre').push(newBook.genre);
-              // ref.child('description').push(newBook.description);
-            }
-          });
-        }
+        let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
+        ref.on("child_added", function(snapshot) {
+          found++;
+          if (found > 1) {
+            console.log('found!');
+            ref.append.parent().child('genre').push(newBook.genre);
+            // ref.child('description').push(newBook.description);
+          }
+        });
         if (found <= 1) {
           console.log('added!');
           database.ref().push(newBook);
         }
-        return false;
 
     //Exports values
     module.exports = {
@@ -145,33 +151,35 @@
       valid: true
     };
 
-  // Clears all of the inputs
-    $("#ntitle").val("");
-    $("#nauthor").val("");
-    $("#ngenre").val("");
-    $("#ndescription").val("");
-    $('#nmystery').prop('checked', false)
-    $('#nromance').prop('checked', false)
-    $('#nclassic').prop('checked', false)
-    $('#nnonfiction').prop('checked', false)
-    $('#nkid').prop('checked', false)
-    $('#nyoung').prop('checked', false)
-    $('#nadult').prop('checked', false)
-    $('#mystery').prop('checked', false)
-    $('#romance').prop('checked', false)
-    $('#classic').prop('checked', false)
-    $('#nonfiction').prop('checked', false)
-    $('#kid').prop('checked', false)
-    $('#young').prop('checked', false)
-    $('#adult').prop('checked', false)
+  //Clears all of the inputs
+    function clear() {
+      $("#ntitle").val("");
+      $("#nauthor").val("");
+      $("#ngenre").val("");
+      $("#ndescription").val("");
+      $('#nmystery').prop('checked', false)
+      $('#nromance').prop('checked', false)
+      $('#nclassic').prop('checked', false)
+      $('#nnonfiction').prop('checked', false)
+      $('#nkid').prop('checked', false)
+      $('#nyoung').prop('checked', false)
+      $('#nadult').prop('checked', false)
 
-    //Go to match page
-    window.location.href="../pages/display.html";
-  
+      $("#genre").val("");
+      $('#mystery').prop('checked', false)
+      $('#romance').prop('checked', false)
+      $('#classic').prop('checked', false)
+      $('#nonfiction').prop('checked', false)
+      $('#kid').prop('checked', false)
+      $('#young').prop('checked', false)
+      $('#adult').prop('checked', false)
+    }
+
+  //Clears and returns
+    clear();
+    if (search == true) window.location.href="../pages/display.html";  
     return false;
 
     });
-
-
   });
 },{}]},{},[1]);
