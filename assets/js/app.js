@@ -1,5 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
   'use strict';
+
   $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
@@ -13,10 +14,8 @@
   };
   firebase.initializeApp(config);
 
-  
-  // holds the firebase the data
+  // Firebase database
   let database = firebase.database();
-      // button for adding adding volunteers
       $("#submit").on("click", function(event) {
         event.preventDefault();
         console.log("working");
@@ -55,13 +54,14 @@
             age: age
         }
       
-      // Adds book suggestion to bank
-        let ntitle = $("#ntitle").val().toLowerCase();
+      // Adds book suggestion to library
+        let ntitle = $("#ntitle").val();
+        if (ntitle) ntitle.toLowerCase();
         let tempAuthor = $("#nauthor").val();
-        tempAuthor.replace(/(\w+), (\w+)/, "$2 $1");
-        let nauthor = {
-          first: tempAuthor.split(" ")[0].toLowerCase(),
-          last: tempAuthor.split(" ")[1].toLowerCase()
+        let nauthor;
+        if (tempAuthor) {
+          tempAuthor = tempAuthor.replace(/(\w+), (\w+)/, "$2 $1");
+          nauthor = tempAuthor.toLowerCase();
         }
         let ngenre = [];
         if(document.getElementById('nmystery').checked) {
@@ -74,7 +74,7 @@
           ngenre.push('classic');
         }
         if(document.getElementById('nnonfiction').checked) {
-            ngenre.push('nonfiction');
+          ngenre.push('nonfiction');
         }
         let nage;
         if(document.getElementById('nkid').checked) {
@@ -105,7 +105,6 @@
           module.exports.valid = false;
           return false;
         }
-
         if (!tempAuthor.includes(" ") && count == 5) {
           alert("Please enter the author's first and last name");
           module.exports.valid = false;
@@ -121,30 +120,26 @@
         }
 
       //Checks if the book is in the database
-      //TODO: fix
-      let found = false;
-      if (count == 5) {
-        database.ref().on('value', function(snapshot) {
-          let entries = Object.keys(snapshot.val());
-          for (let bk of entries) {
-            if (bk.child("title").val() == newBook.title) {
-              found = true;
-              if (bk.child("genre").val().sort() != newBook.genre.sort()) {
-                newBook.genre.forEach(gen => function() {
-                  if (bk.child("genre").val().contains(gen)) {
-                    bk.child("genre").push(gen);
-                  }
-                });
-              }
-              bk.child("description").push(newBook.description);
-              break;
-            }
-          } 
-        });
-        if (!found) database.ref().push(newBook);
-      }
+        // if (count == 5) {
+        //   database.ref().orderByChild('title').equalTo('not equal').on('value', function(snapshot) {
+        //     console.log('found!');
+        //   });
+        // }
+        // console.log('executed');
+        // database.ref().push(newBook);
+        // return false;
 
-    //Export values
+        let found = 0;
+        if (count == 5) {
+          database.ref().orderByChild("title").equalTo(`${newBook.title}`).on("child_added", function(snapshot) {
+            found++;
+            if (found > 1) console.log('found!');
+          });
+        }
+        if (found <= 1) database.ref().push(newBook);
+        return false;
+
+    //Exports values
     module.exports = {
       target: characteristics,
       suggestion: newBook,
@@ -175,12 +170,9 @@
     window.location.href="../pages/display.html";
   
     return false;
-  
+
     });
-  
-      // Firebase watcher + initial loader HINT: .on("value")
-      database.ref().on("child_added", function(childSnapshot){
-          console.log(childSnapshot.val());
-      });
+
+
   });
 },{}]},{},[1]);
