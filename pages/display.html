@@ -18,9 +18,22 @@
 <div class="container">
     <!-- Jumbotron Title -->
     <div class="jumbotron">
-        <h1 class="text-center">Your Perfect Match!</h1>
+        <h1 class="text-center">Your Perfect Matches!</h1>
     </div>
-
+    <div class="description">These books fit your description</div>
+    <div class="content-wrap">
+        <ol class="list-group row">
+            <!-- Display matching books -->
+            <script type="text/JavaScript">
+                let books = require('../assets/js/match');
+                books.forEach(function(book) {
+                    document.write("<li>" + book.title + "<li>");
+                    document.write("<p>" + book.author + "<p>");
+                    descriptions.forEach(desc => document.write("<p>" + desc + "</p>"));
+                });
+            </script>
+        </ol>
+    </div>
 </div>
 
     <!-- JavaScript -->

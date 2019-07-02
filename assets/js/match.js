@@ -42,7 +42,7 @@
             if (a == b) return 0;
         }
 
-        //Format appearance
+        //Formats appearance
         relevant.forEach(function(book) {
             book.title = format(title);
             book.author = format(author);
@@ -56,9 +56,10 @@
             return result;
         }
 
-    //TODO: display the book
-    alert(relevant.toString);
-    });
+    //Export the book
+    module.exports = relevant;
 
+    });
+    
 });
 },{"./app.js":1}]},{},[2]);
