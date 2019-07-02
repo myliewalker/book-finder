@@ -120,23 +120,22 @@
         }
 
       //Checks if the book is in the database
-        // if (count == 5) {
-        //   database.ref().orderByChild('title').equalTo('not equal').on('value', function(snapshot) {
-        //     console.log('found!');
-        //   });
-        // }
-        // console.log('executed');
-        // database.ref().push(newBook);
-        // return false;
-
         let found = 0;
         if (count == 5) {
-          database.ref().orderByChild("title").equalTo(`${newBook.title}`).on("child_added", function(snapshot) {
+          let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
+          ref.on("child_added", function(snapshot) {
             found++;
-            if (found > 1) console.log('found!');
+            if (found > 1) {
+              console.log('found!');
+              ref.append.parent().child('genre').push(newBook.genre);
+              // ref.child('description').push(newBook.description);
+            }
           });
         }
-        if (found <= 1) database.ref().push(newBook);
+        if (found <= 1) {
+          console.log('added!');
+          database.ref().push(newBook);
+        }
         return false;
 
     //Exports values

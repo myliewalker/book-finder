@@ -42,6 +42,20 @@
             if (a == b) return 0;
         }
 
+        //Format appearance
+        relevant.forEach(function(book) {
+            book.title = format(title);
+            book.author = format(author);
+        });
+        function format(str) {
+            let result = '';
+            for (let word of str.split(' ')) {
+                let temp = `${word.substring(0,1).toUpperCase()} ${word.substring(1)}`;
+                result.concat(temp);
+            }
+            return result;
+        }
+
     //TODO: display the book
     alert(relevant.toString);
     });
