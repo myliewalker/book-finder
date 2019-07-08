@@ -1,0 +1,25 @@
+{
+  "name": "book-finder",
+  "version": "1.0.0",
+  "description": "A web app that allows people to enter the characteristics of a book they would like to read. It matches their preferences with books in the system, and suggests a list of books that they would enjoy. Users are also able to enter books they have enjoyed. If the  suggestion is not in the library system, it will be added.",
+  "main": "index.js",
+  "module": "main.js",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myliewalker/book-finder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myliewalker/book-finder/issues"
+  },
+  "homepage": "https://github.com/myliewalker/book-finder#readme"
+}
