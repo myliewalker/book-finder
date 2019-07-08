@@ -103,6 +103,10 @@ body {
     border-radius: 0px;
     border-color: rgb(136, 27, 54);
 }
+
+.boxTitle {
+    padding-bottom: 10px;
+}
 /* hide default checkbox */
 input[type="checkbox"], input[type="radio"]{
     display: none;
@@ -114,8 +118,8 @@ input[type="checkbox"], input[type="radio"]{
     position: absolute;
     top: 0;
     left: 0;
-    height: 10px;
-    width: 10px;
+    height: 12px;
+    width: 12px;
     border: solid;
     border-color: rgb(223, 120, 120);
     border-width: 1px;
@@ -130,13 +134,13 @@ input[type="checkbox"], input[type="radio"]{
 }
 /* checkmark style */
 .container .checkmark:after, .radio:after {
-    left: 5px;
-    top: 2px;
-    width: 6px;
+    left: 2px;
+    top: 0px;
+    width: 5px;
     height: 10px;
     border: solid;
     border-color: rgb(136, 27, 54);
-    border-width: 0 3px 3px 0;
+    border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);

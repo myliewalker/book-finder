@@ -29,7 +29,7 @@
             "type": "chrome",
             "request": "launch",
             "file": "${workspaceFolder}/pages/index.html"
-        }
+        },
 
         {
             "name": "Launch display.html",
