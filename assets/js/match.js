@@ -5,11 +5,34 @@
     
     //Firebase database
     let database = firebase.database();
-    $("#submit").on("click", function() {
-        let books = database.data;
 
-        let target = require('./app').target;
-        let suggestion = require('./app').suggestion;
+    $("#submit").on("click", function() {
+      let books = [];
+
+      database.ref().on('value', function(snapshot) {
+        
+        //Separates all firebase objects, then adds them to a list of books
+        let keys = Object.keys(snapshot.val());
+        keys.unshift();
+        keys.forEach(function(key) {
+          let temp = snapshot.child(key).val();
+          let book = {
+            title: temp.title,
+            author: temp.author,
+            genre: temp.genre,
+            age: temp.age,
+            description: temp.description
+          }
+          books.push(book);
+        })
+
+        console.log(books[0].title);
+
+        // let target = require('./app').target;
+        // let suggestion = require('./app').suggestion;
+
+        let target = books[0];
+        let suggestion = books[1];
         
         //Checks if a request is made
         if (!target) return false;
@@ -28,6 +51,10 @@
         let relevant = correctGenre.filter(book => book.age == target.age);
 
         //Sorts the matching books by author
+        if (relevant.length == 0) {
+          alert("No matching books were found");
+          return false;
+        }
         relevant.sort(function(a, b) {
             let res = compare(a.author.last, b.author.last);
             if (res != 0) return res;
@@ -43,8 +70,8 @@
 
         //Formats appearance
         relevant.forEach(function(book) {
-            book.title = format(title);
-            book.author = format(author);
+            book.title = format(book.title);
+            book.author = format(book.author);
         });
         function format(str) {
             let result = '';
@@ -55,20 +82,27 @@
             return result;
         }
 
-    //Export the book
-    app.get('../../pages/display', function(req, res) {
-      let allMatches = [];
-      relevant.forEach(function(book) {
-        let elem = new Object();
-        elem.title = book.title;
-        elem.author = book.author;
-        elem.genre = book.genre;
+        console.log(relevant[0].title);
 
-        allMatches.push(elem);
-        console.log(elem)
-      });
-      res.render('../../pages/display.html', {allMatches:allMatches})
+    //Export the book
+    // app.get('../../pages/display', function(req, res) {
+    //   let allMatches = [];
+    //   relevant.forEach(function(book) {
+    //     let elem = new Object();
+    //     elem.title = book.title;
+    //     elem.author = book.author;
+    //     elem.genre = book.genre;
+
+    //     allMatches.push(elem);
+    //     console.log(elem)
+    //   });
+    //   res.render('../../pages/display.html', {allMatches:allMatches})
+    // });
+
+
     });
+
+    return false;
 
   });
 

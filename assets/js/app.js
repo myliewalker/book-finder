@@ -15,6 +15,7 @@
 
   // Firebase database
   let database = firebase.database();
+  
       $("#submit").on("click", function(event) {
         event.preventDefault();
         console.log("working");
@@ -115,7 +116,7 @@
       //Return if a search
         if (count == 0) {
           clear();
-          window.location.href="../pages/display.html";
+          // window.location.href="../pages/display.html";
           return false;
         }
 
@@ -175,8 +176,8 @@
 
   //Clears and returns
     clear();
-    if (search == true) window.location.href="../pages/display.html";  
-    return false;
+    // if (search == true) window.location.href="../pages/display.html";  
+    // return false;
 
     });
   });
