@@ -15,7 +15,7 @@
 
   // Firebase database
   let database = firebase.database();
-  
+
       $("#submit").on("click", function(event) {
         event.preventDefault();
         console.log("working");
@@ -88,7 +88,8 @@
         else if(document.getElementById('nadult').checked) {
           nage = 'adult';
         }
-        let ndescription = $("#ndescription").val();
+        let ndescription = [];
+        ndescription.push($("#ndescription").val());
         let count = 0;
         if (ntitle) count++;
         if (tempAuthor) count++;
@@ -129,26 +130,35 @@
         }
 
       //Checks if the book is in the database
-        let found = 0;
+        let completed = false;
         let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
-        ref.on("child_added", function(snapshot) {
-          found++;
-          if (found > 1) {
-            console.log('found!');
-            ref.append.parent().child('genre').push(newBook.genre);
-            // ref.child('description').push(newBook.description);
+        ref.once('value', function(snapshot) {
+          let key;
+          if (snapshot.val() && !completed) { 
+            key = Object.keys(snapshot.val())[0];
+            if (key) {
+              console.log('found!');
+              let newGenre = newBook.genre;
+              snapshot.child(key).val().genre.forEach(g => newGenre.push(g));
+              let newDescription = newBook.description;
+              snapshot.child(key).val().description.forEach(d => newDescription.push(d));
+              database.ref().child(key).update({genre: newGenre, description: newDescription});
+              clear();
+              return false;
+            }
+          }
+          else if (!completed){
+            console.log('added!');
+            completed = true;
+            database.ref().push(newBook);
           }
         });
-        if (found <= 1) {
-          console.log('added!');
-          database.ref().push(newBook);
-        }
 
     //Exports values
-    module.exports = {
-      target: characteristics,
-      suggestion: newBook,
-    };
+    // module.exports = {
+    //   target: characteristics,
+    //   suggestion: newBook,
+    // };
 
   //Clears all of the inputs
     function clear() {
@@ -176,6 +186,7 @@
 
   //Clears and returns
     clear();
+    return false;
     // if (search == true) window.location.href="../pages/display.html";  
     // return false;
 

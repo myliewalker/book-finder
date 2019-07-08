@@ -10,7 +10,11 @@
       let books = [];
 
       database.ref().on('value', function(snapshot) {
-        
+        if (!snapshot.val()) {
+          console.log('No books are in the database');
+          return false;
+        }
+
         //Separates all firebase objects, then adds them to a list of books
         let keys = Object.keys(snapshot.val());
         keys.unshift();
@@ -25,9 +29,6 @@
           }
           books.push(book);
         })
-
-        console.log(books[0].title);
-
         // let target = require('./app').target;
         // let suggestion = require('./app').suggestion;
 
@@ -52,7 +53,7 @@
 
         //Sorts the matching books by author
         if (relevant.length == 0) {
-          alert("No matching books were found");
+          console.log('No matching books were found');
           return false;
         }
         relevant.sort(function(a, b) {
