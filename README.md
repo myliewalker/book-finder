@@ -14,12 +14,12 @@ Follow these steps to use the app:
 *  [Bootstrap][1] - Organizes display and imposes uniform styling
 *  [Firebase][2] - Dynamically stores the volunteer input data
 *  [Node][3] - Creates a dynamic web app
-*  [Browserify][4] - Makes the program browser compatible
+*  [Require][4] - Makes the program browser compatible
 
 [1]: http://getbootstrap.com/ "Title"
 [2]: http://firebase.google.com/ "Title"
 [3]: https://nodejs.org/docs/latest-v9.x/api/ "Title"
-[4]: https://http://browserify.org/ "Title"
+[4]: https://requirejs.org/ "Title"
 
 ## Authors
 Mylie Walker

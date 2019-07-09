@@ -7,8 +7,7 @@
     let database = firebase.database();
 
     $("#submit").on("click", function() {
-      let books = [];
-
+      console.log('display ready!');
       database.ref().on('value', function(snapshot) {
         if (!snapshot.val()) {
           console.log('No books are in the database');
@@ -16,6 +15,7 @@
         }
 
         //Separates all firebase objects, then adds them to a list of books
+        let books = [];
         let keys = Object.keys(snapshot.val());
         keys.unshift();
         keys.forEach(function(key) {
@@ -29,11 +29,9 @@
           }
           books.push(book);
         })
-        // let target = require('./app').target;
-        // let suggestion = require('./app').suggestion;
 
-        let target = books[0];
-        let suggestion = books[1];
+        let target = require('./main-app').target;
+        let suggestion = require('./main-app').suggestion;
         
         //Checks if a request is made
         if (!target) return false;

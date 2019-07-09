@@ -6,6 +6,7 @@
   "module": "main.js",
   "dependencies": {
     "esm": "^3.2.25",
+    "requirejs": "^2.3.6",
     "uniq": "^1.0.1"
   },
   "devDependencies": {},
