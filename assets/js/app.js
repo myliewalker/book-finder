@@ -1,8 +1,5 @@
   'use strict';
 
-  module.exports = 'test app';
-  return false;
-
   $(document).ready(function(){
     console.log ("ready!");
    // Initialize Firebase
@@ -19,7 +16,7 @@
   // Firebase database
   let database = firebase.database();
 
-      $("#submit").on("click", function(event) {
+    $("#submit").on("click", function(event) {
         event.preventDefault();
         console.log("working");
   
@@ -58,6 +55,7 @@
             genre: genre,
             age: age
         }
+        if (!search) characteristics = false;
       
       // Adds book suggestion to library
         let ntitle = $("#ntitle").val();
@@ -116,20 +114,19 @@
           return false;
         }
 
-      //Return if a search
-        let newBook = {
-          title: ntitle,
-          author: nauthor,
-          genre: ngenre,
-          age: nage,
-          description: ndescription
-        }
-
+      let newBook = {
+        title: ntitle,
+        author: nauthor,
+        genre: ngenre,
+        age: nage,
+        description: ndescription
+      }
       //Checks if the book is in the database
       if (count == 5) {
+        console.log('5');
         let completed = false;
         let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
-        ref.once('value', function(snapshot) {
+        ref.on('value', function(snapshot) {
           let key;
           if (snapshot.val() && !completed) { 
             key = Object.keys(snapshot.val())[0];
@@ -140,7 +137,8 @@
               let newDescription = newBook.description;
               snapshot.child(key).val().description.forEach(d => newDescription.push(d));
               database.ref().child(key).update({genre: newGenre, description: newDescription});
-              clear();
+              end();
+              if (search) window.location.href="../pages/display.html";
               return false;
             }
           }
@@ -148,16 +146,29 @@
             console.log('added!');
             completed = true;
             database.ref().push(newBook);
+            end();
+            if (search) window.location.href="../pages/display.html";
+            return false;
           }
         });
       }
+      else {
+        newBook = false;
+        end();
+        if (search) window.location.href="../pages/display.html";
+        return false;
+      }
 
-    // Exports values
-    module.exports = {
-      target: characteristics,
-      suggestion: newBook,
-      search: search
-    };
+    //Temporarily store form data in firebase
+    function end() {
+      let all = {
+        target: characteristics,
+        suggestion: newBook,
+        search: search
+      }
+      database.ref().child('form data').update(all);
+      clear();
+    }
 
     //Clears all of the inputs
     function clear() {
@@ -183,9 +194,6 @@
       $('#adult').prop('checked', false)
     }
 
-  //Clears and returns
-    clear();
-    if (search == true) window.location.href="../pages/display.html";  
     return false;
 
     });

@@ -19,6 +19,8 @@
     // $("#submit").on("click", function() {
     // window.addEventListener('load', () => {
     // window.onload = function() {
+    $("#submit").on("click", function(event) {
+      event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
         if (!snapshot.val()) {
@@ -26,12 +28,25 @@
           return false;
         }
 
-        //Separates all firebase objects, then adds them to a list of books
-        let books = [];
+        //Grabs form data
         let keys = Object.keys(snapshot.val());
+        let last = keys.pop();
+        let data = snapshot.child(last).val();
+        let target = data.target;
+        let suggestion = data.suggestion;
+        let search = data.search;
+
+
+        //Separates all firebase objects, then adds them to a list of books
+        if (keys.length == 0) {
+          console.log('No books are in the database');
+          return false;
+        }
+        let books = [];
         keys.unshift();
         keys.forEach(function(key) {
           let temp = snapshot.child(key).val();
+          //separate last one
           let book = {
             title: temp.title,
             author: temp.author,
@@ -41,19 +56,6 @@
           }
           books.push(book);
         })
-
-        // var requirejs = require('./require');
-        // requirejs.config({
-        //   nodeRequire: require
-        // });
-        // requirejs(['require', 'app'], function(app) {
-        //   console.log(app);
-        // });
-
-        // let target = require('./app').target;
-        // let suggestion = require('./app').suggestion;
-        // let search = require('./app').search;
-        console.log(require('./app-bundle'));
         
         //Checks if a request is made
         if (!search) {console.log('ret'); return false;}
@@ -125,6 +127,6 @@
 
     return false;
 
-  // };
+  });
 
 });

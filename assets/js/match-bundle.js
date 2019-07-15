@@ -1,6 +1,10 @@
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.match = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+(function (global){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.book = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
   'use strict';
+
+  // module.exports = ('test top');
+  // return false;
 
   $(document).ready(function(){
     console.log ("ready!");
@@ -18,6 +22,10 @@
   // Firebase database
   let database = firebase.database();
 
+  module.exports.test = 'yes';
+
+      //ISSUE: exports returning null bc of submit on click
+      window.nb;
       $("#submit").on("click", function(event) {
         event.preventDefault();
         console.log("working");
@@ -152,13 +160,14 @@
       }
 
     // Exports values
+    // console.log('exports');
     module.exports = {
       target: characteristics,
       suggestion: newBook,
       search: search
     };
 
-    console.log('exporting' + module.exports);
+    window.nb = newBook;
 
     //Clears all of the inputs
     function clear() {
@@ -187,12 +196,15 @@
   //Clears and returns
     clear();
     if (search == true) window.location.href="../pages/display.html";  
-    return false;
+    // return false;
 
     });
+    module.exports = window.nb;
+    return false;
   });
-},{}]},{},[1]);
-
+},{}]},{},[1])(1)
+});
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
   
   'use strict';
@@ -200,15 +212,15 @@
   $(document).ready(function(){
     
     // Firebase database
-    let config = {
-      apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
-      authDomain: "book-finder-6cc03.firebaseapp.com",
-      databaseURL: "https://book-finder-6cc03.firebaseio.com",
-      projectId: "book-finder-6cc03",
-      storageBucket: "",
-      messagingSenderId: "893603769974"
-    };
-    firebase.initializeApp(config);
+    // let config = {
+    //   apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
+    //   authDomain: "book-finder-6cc03.firebaseapp.com",
+    //   databaseURL: "https://book-finder-6cc03.firebaseio.com",
+    //   projectId: "book-finder-6cc03",
+    //   storageBucket: "",
+    //   messagingSenderId: "893603769974"
+    // };
+    // firebase.initializeApp(config);
     let database = firebase.database();
     // console.log('test');
 
@@ -246,9 +258,13 @@
         //   console.log(app);
         // });
 
-        let target = require('./app-bundle').target;
-        let suggestion = require('./app-bundle').suggestion;
-        let search = require('./app-bundle').search;
+        console.log('requires');
+        let target;
+        let suggestion;
+        let search;
+        // let target = require('./app-bundle').target;
+        // let suggestion = require('./app-bundle').suggestion;
+        // let search = require('./app-bundle').search;
         console.log(require('./app-bundle'));
         
         //Checks if a request is made
@@ -324,4 +340,5 @@
   // };
 
 });
-},{"./app-bundle":1}]},{},[2]);
+},{"./app-bundle":1}]},{},[2])(2)
+});
