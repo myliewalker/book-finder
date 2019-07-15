@@ -121,9 +121,9 @@
         age: nage,
         description: ndescription
       }
+      console.log(newBook);
       //Checks if the book is in the database
       if (count == 5) {
-        console.log('5');
         let completed = false;
         let ref = database.ref().orderByChild("title").equalTo(`${newBook.title}`);
         ref.on('value', function(snapshot) {

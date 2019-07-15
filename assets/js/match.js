@@ -4,22 +4,22 @@
   $(document).ready(function(){
     
     // Firebase database
-    // let config = {
-    //   apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
-    //   authDomain: "book-finder-6cc03.firebaseapp.com",
-    //   databaseURL: "https://book-finder-6cc03.firebaseio.com",
-    //   projectId: "book-finder-6cc03",
-    //   storageBucket: "",
-    //   messagingSenderId: "893603769974"
-    // };
-    // firebase.initializeApp(config);
+    let config = {
+      apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
+      authDomain: "book-finder-6cc03.firebaseapp.com",
+      databaseURL: "https://book-finder-6cc03.firebaseio.com",
+      projectId: "book-finder-6cc03",
+      storageBucket: "",
+      messagingSenderId: "893603769974"
+    };
+    firebase.initializeApp(config);
     let database = firebase.database();
     // console.log('test');
 
     // $("#submit").on("click", function() {
     // window.addEventListener('load', () => {
     // window.onload = function() {
-    $("#submit").on("click", function(event) {
+    // $("#submit").on("click", function(event) {
       event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
@@ -36,7 +36,6 @@
         let suggestion = data.suggestion;
         let search = data.search;
 
-
         //Separates all firebase objects, then adds them to a list of books
         if (keys.length == 0) {
           console.log('No books are in the database');
@@ -46,7 +45,6 @@
         keys.unshift();
         keys.forEach(function(key) {
           let temp = snapshot.child(key).val();
-          //separate last one
           let book = {
             title: temp.title,
             author: temp.author,
@@ -58,8 +56,8 @@
         })
         
         //Checks if a request is made
-        if (!search) {console.log('ret'); return false;}
-        if(target && suggestion) {
+        if (!search) return false;
+        if(target != false && suggestion != false) {
             books.pop();
         }
 
@@ -93,16 +91,20 @@
 
         //Formats appearance
         relevant.forEach(function(book) {
+            console.log(book.title);
             book.title = format(book.title);
+            console.log(book.title);
             book.author = format(book.author);
         });
         function format(str) {
-            let result = '';
+            let result = "";
             for (let word of str.split(' ')) {
-                let temp = `${word.substring(0,1).toUpperCase()} ${word.substring(1)}`;
-                result.concat(temp);
+              result = result.concat(" ");
+              let temp = word.substring(0,1).toUpperCase();
+              temp = temp.concat(word.substring(1).toLowerCase());
+              result = result.concat(temp);
             }
-            return result;
+            return result.substring(1);
         }
 
         console.log(relevant[0].title);
@@ -129,4 +131,4 @@
 
   });
 
-});
+// });
