@@ -3,10 +3,22 @@
 
   $(document).ready(function(){
     
-    //Firebase database
+    // Firebase database
+    // let config = {
+    //   apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
+    //   authDomain: "book-finder-6cc03.firebaseapp.com",
+    //   databaseURL: "https://book-finder-6cc03.firebaseio.com",
+    //   projectId: "book-finder-6cc03",
+    //   storageBucket: "",
+    //   messagingSenderId: "893603769974"
+    // };
+    // firebase.initializeApp(config);
     let database = firebase.database();
+    // console.log('test');
 
-    $("#submit").on("click", function() {
+    // $("#submit").on("click", function() {
+    // window.addEventListener('load', () => {
+    // window.onload = function() {
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
         if (!snapshot.val()) {
@@ -30,11 +42,21 @@
           books.push(book);
         })
 
-        let target = require('./main-app').target;
-        let suggestion = require('./main-app').suggestion;
+        // var requirejs = require('./require');
+        // requirejs.config({
+        //   nodeRequire: require
+        // });
+        // requirejs(['require', 'app'], function(app) {
+        //   console.log(app);
+        // });
+
+        // let target = require('./app').target;
+        // let suggestion = require('./app').suggestion;
+        // let search = require('./app').search;
+        console.log(require('./app-bundle'));
         
         //Checks if a request is made
-        if (!target) return false;
+        if (!search) {console.log('ret'); return false;}
         if(target && suggestion) {
             books.pop();
         }
@@ -103,6 +125,6 @@
 
     return false;
 
-  });
+  // };
 
 });
