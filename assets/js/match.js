@@ -14,12 +14,7 @@
     };
     firebase.initializeApp(config);
     let database = firebase.database();
-    // console.log('test');
 
-    // $("#submit").on("click", function() {
-    // window.addEventListener('load', () => {
-    // window.onload = function() {
-    // $("#submit").on("click", function(event) {
       event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
@@ -28,13 +23,14 @@
           return false;
         }
 
-        //Grabs form data
+        //Grabs form data and removes it from firebase
         let keys = Object.keys(snapshot.val());
         let last = keys.pop();
         let data = snapshot.child(last).val();
         let target = data.target;
         let suggestion = data.suggestion;
         let search = data.search;
+        database.ref().child('form data').set(true);
 
         //Separates all firebase objects, then adds them to a list of books
         if (keys.length == 0) {
@@ -91,9 +87,7 @@
 
         //Formats appearance
         relevant.forEach(function(book) {
-            console.log(book.title);
             book.title = format(book.title);
-            console.log(book.title);
             book.author = format(book.author);
         });
         function format(str) {
@@ -106,8 +100,6 @@
             }
             return result.substring(1);
         }
-
-        console.log(relevant[0].title);
 
     //Export the book
     // app.get('../../pages/display', function(req, res) {
