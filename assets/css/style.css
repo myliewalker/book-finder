@@ -165,7 +165,7 @@ input[type="checkbox"], input[type="radio"]{
     background-color: #d3a342 !important;
 }
 .btn:focus {
-    background-color: rgb(253, 186, 186);
+    background-color: rgb(136, 27, 54);
     border-color: #d3a342 !important;
     outline: none;
     -webkit-box-shadow: none;

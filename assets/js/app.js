@@ -56,7 +56,6 @@
         if (genre.length > 0 || age) search = true;
         if (search && (genre.length == 0 || !age)) {
             alert('Please complete all sections of finder.')
-            module.exports.valid = false;
             return false;
         }
         let characteristics = {
@@ -113,12 +112,10 @@
         //Validates form data
         if (count == 0 && search == false) {
           alert('Please complete this form.');
-          module.exports.valid = false;
           return false;
         }
         if (!tempAuthor.includes(" ") && count == 5) {
           alert("Please enter the author's first and last name");
-          module.exports.valid = false;
           return false;
         }
 

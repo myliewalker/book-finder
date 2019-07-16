@@ -116,7 +116,6 @@
     //   res.render('../../pages/display.html', {allMatches:allMatches})
     // });
 
-
     });
 
     return false;
