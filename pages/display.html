@@ -30,12 +30,8 @@
     <!-- Main -->
     <div class="description">These books fit your description</div>
     <div class="content-wrap">
-        <ol class="list-group row">
-            <!-- Display matching books -->
-            <!-- <script type="text/javascript" src="../assets/js/match.js"> -->
-            <% questions.forEach(function(question) { %>
-                <li>Number: <%= question.id %> <br/> Text: <%= question.quesStatement %></li>
-                <% }); %>
+        <!-- Displays matching books -->
+        <ol class="list-group row" id="list">
         </ol>
     </div>
 </div>

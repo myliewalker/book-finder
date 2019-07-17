@@ -8,7 +8,6 @@ Follow these steps to use the app:
 1.  Fork the repo
 2.  Create a new database to store book data
 3.  Configure the database in app.js and match.js
-4.  Copy the filepath of information into match.js
 
 ## Built With
 *  [Bootstrap][1] - Organizes display and imposes uniform styling

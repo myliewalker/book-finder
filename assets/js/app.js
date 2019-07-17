@@ -32,16 +32,16 @@
         let search = false;
         let genre = [];
         if(document.getElementById('mystery').checked) {
-          genre.push('mystery');
+          genre.push('Mystery');
         }
         if(document.getElementById('romance').checked) {
-          genre.push('romance');
+          genre.push('Romance');
         }
         if(document.getElementById('classic').checked) {
-          genre.push('classic');
+          genre.push('Classic');
         }
         if(document.getElementById('nonfiction').checked) {
-            genre.push('nonfiction');
+            genre.push('Nonfiction');
         }
         let age;
         if(document.getElementById('kid').checked) {
@@ -75,16 +75,16 @@
         }
         let ngenre = [];
         if(document.getElementById('nmystery').checked) {
-          ngenre.push('mystery');
+          ngenre.push('Mystery');
         }
         if(document.getElementById('nromance').checked) {
-          ngenre.push('romance');
+          ngenre.push('Romance');
         }
         if(document.getElementById('nclassic').checked) {
-          ngenre.push('classic');
+          ngenre.push('Classic');
         }
         if(document.getElementById('nnonfiction').checked) {
-          ngenre.push('nonfiction');
+          ngenre.push('Nonfiction');
         }
         let nage;
         if(document.getElementById('nkid').checked) {

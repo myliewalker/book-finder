@@ -25,12 +25,13 @@
 
         //Grabs form data and removes it from firebase
         let keys = Object.keys(snapshot.val());
-        let last = keys.pop();
-        let data = snapshot.child(last).val();
+        keys.pop();
+        let data = snapshot.child('form data').val();
+        console.log(data);
         let target = data.target;
         let suggestion = data.suggestion;
         let search = data.search;
-        database.ref().child('form data').set(true);
+        // database.ref().child('form data').remove();
 
         //Separates all firebase objects, then adds them to a list of books
         if (keys.length == 0) {
@@ -50,9 +51,13 @@
           }
           books.push(book);
         })
+        console.log(books);
         
         //Checks if a request is made
-        if (!search) return false;
+        if (!search) {
+          console.log('Not a search');
+          return false
+        };
         if(target != false && suggestion != false) {
             books.pop();
         }
@@ -64,8 +69,10 @@
                 return false;
             })
           });
+        console.log(correctGenre);
         //Filters by age
         let relevant = correctGenre.filter(book => book.age == target.age);
+        console.log(relevant);
 
         //Sorts the matching books by author
         if (relevant.length == 0) {
@@ -87,10 +94,11 @@
 
         //Formats appearance
         relevant.forEach(function(book) {
-            book.title = format(book.title);
-            book.author = format(book.author);
+            book.title = formatStr(book.title);
+            book.author = formatStr(book.author);
+            book.description = formatArr(book.description);
         });
-        function format(str) {
+        function formatStr(str) {
             let result = "";
             for (let word of str.split(' ')) {
               result = result.concat(" ");
@@ -100,26 +108,29 @@
             }
             return result.substring(1);
         }
-
-    //Export the book
-    // app.get('../../pages/display', function(req, res) {
-    //   let allMatches = [];
-    //   relevant.forEach(function(book) {
-    //     let elem = new Object();
-    //     elem.title = book.title;
-    //     elem.author = book.author;
-    //     elem.genre = book.genre;
-
-    //     allMatches.push(elem);
-    //     console.log(elem)
-    //   });
-    //   res.render('../../pages/display.html', {allMatches:allMatches})
-    // });
+        function formatArr(arr) {
+          let result = [];
+          for (let element of arr) {
+            result.push(element.charAt(0).toUpperCase().concat(element.substring(1)));
+          }
+          return result;
+        }
+      
+        //Displays relevant books
+        for(let i = 0; i < relevant.length; i++) {
+          $("#list").append(`<li>${i+1}. ${relevant[i].title}<br>${relevant[i].author}<br>
+            ${convert(relevant[i].genre)}<br>${convert(relevant[i].description)}<br><br><li>`);
+          console.log(relevant[0]);
+        }
+        function convert(arr) {
+          console.log(arr);
+          let res = '';
+          arr.forEach(element => res = res.concat(` ${element}`));
+          return res.substring(1);
+        }
 
     });
 
     return false;
 
   });
-
-// });
