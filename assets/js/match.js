@@ -118,8 +118,8 @@
       
         //Displays relevant books
         for(let i = 0; i < relevant.length; i++) {
-          $("#list").append(`<li>${i+1}. ${relevant[i].title}<br>${relevant[i].author}<br>
-            ${convert(relevant[i].genre)}<br>${convert(relevant[i].description)}<br><br><li>`);
+          $("#list").append(`<li><h3>${i+1}. <span id="title">${relevant[i].title}</span></h3>&nbsp&nbsp&nbsp&nbsp${relevant[i].author}<br>&nbsp&nbsp&nbsp
+            ${convert(relevant[i].genre)}<br>&nbsp&nbsp&nbsp&nbsp${convert(relevant[i].description)}<br><br><li>`);
           console.log(relevant[0]);
         }
         function convert(arr) {
