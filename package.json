@@ -5,8 +5,11 @@
   "main": "index.js",
   "module": "main.js",
   "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "crawler": "^1.2.1",
     "esm": "^3.2.25",
-    "requirejs": "^2.3.6",
+    "firebase": "^6.3.3",
     "uniq": "^1.0.1"
   },
   "devDependencies": {},

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    
+<head>
+    <title>Book Finder</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Linking CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Arizona' rel='stylesheet' type='text/css'> -->
+    
+    <!-- JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Moment js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- Controls -->
+    <script src="assets/js/match.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <!-- Jumbotron Title -->
+    <div class="jumbotron">
+        <h1 class="text-center">Your Perfect Matches!</h1>
+    </div>
+    <!-- Main -->
+    <div class="description">These books fit your description</div>
+    <div class="content-wrap">
+        <!-- Displays matching books -->
+        <ol class="list-group row" id="list">
+        </ol>
+    </div>
+</div>
+
+</body>
+
+</html>

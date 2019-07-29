@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Linking CSS -->
+		<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- Fonts -->
+    <!-- <link href='http://fonts.googleapis.com/css?family=Arizona' rel='stylesheet' type='text/css'> -->
+    
+    <!-- JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Moment js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- Controls -->
+    <script src="assets/js/app.js"></script>
+</head>
+
+<body>
+<div class="container">
+      <!-- Jumbotron Title -->
+      <div class="jumbotron">
+        <h1 class="text-center">Find Your Perfect Book</h1>
+      </div>
+      <div class="description">
+        <p>Are you looking for the perfect read?</p>
+      </div>
+
+                <!-- Input Interests-->
+          <div class="modal-body row">
+          <div class="col-lg-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Your Ideal Book</h3>
+              </div>
+              <div class="panel-body">
+                <!-- <form> -->
+                <form>
+                  <div class="modal-body row">
+                  <div class="col-lg-6">
+                  <label class="boxTitle">Genre</label>
+                  <div class="form-group">
+                    <label class="container">Mystery
+                      <input class="form-control" id="mystery" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Romance
+                      <input class="form-control" id="romance" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Classic
+                      <input class="form-control" id="classic" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Nonfiction
+                      <input class="form-control" id="nonfiction" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                  </div>
+                  </div>
+                <div class="modal-body row">
+                <div class="col-lg-6">
+                <label class="boxTitle">Age</label>
+                <div class="form-group">
+                    <label class="container">Children's
+                      <input class="form-control" name="age" id="kid" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                    <label class="container">Young Adult
+                      <input class="form-control" name="age" id="young" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                    <label class="container">Adult
+                      <input class="form-control" name="age" id="adult" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                </div>
+                </div>
+                </div>
+              </form>
+            </div>
+            </div>
+            </div>
+
+      <!-- Suggest a Book -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Recommend a Book</h3>
+            </div>
+            <div class="panel-body">
+              <form>
+                <div class="form-group">
+                    <label for="ntitle">Title</label>
+                    <input class="form-control" id="ntitle" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="nauthor">Author</label>
+                    <input class="form-control" id="nauthor" type="text">
+                </div>
+                <div class="modal-body row">
+                <div class="col-lg-6">
+                <label class="boxTitle">Genre</label>
+                <div class="form-group">
+                    <label class="container">Mystery
+                      <input class="form-control" name="genre" id="nmystery" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Romance
+                      <input class="form-control" name="genre" id="nromance" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Classic
+                      <input class="form-control" name="genre" id="nclassic" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">Nonfiction
+                      <input class="form-control" name="genre" id="nnonfiction" type="checkbox">
+                      <span class="checkmark"></span>
+                    </label> 
+                </div>
+                </div>
+                <div class="col-lg-6">
+                <label class="boxTitle">Age</label>
+                <div class="form-group">
+                    <label class="container">Children's
+                      <input class="form-control" name="nage" id="nkid" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                    <label class="container">Young Adult
+                      <input class="form-control" name="nage" id="nyoung" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                    <label class="container">Adult
+                      <input class="form-control" name="nage" id="nadult" type="radio">
+                      <span class="radio"></span>
+                    </label>
+                </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="ndescription">Description</label>
+                    <input class="form-control" id="ndescription" type="text">
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+        </div>
+        </div>
+        <button class="btn btn-primary"id="submit" type="submit">Submit</button>
+</div>
+
+</html>

@@ -18,7 +18,7 @@
       event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
-        if (!snapshot.val()) {
+        if (!snapshot.val() || snapshot.getChildrenCount() <= 1) {
           console.log('No books are in the database');
           return false;
         }
@@ -27,11 +27,9 @@
         let keys = Object.keys(snapshot.val());
         keys.pop();
         let data = snapshot.child('form data').val();
-        console.log(data);
         let target = data.target;
         let suggestion = data.suggestion;
         let search = data.search;
-        // database.ref().child('form data').remove();
 
         //Separates all firebase objects, then adds them to a list of books
         if (keys.length == 0) {
@@ -51,7 +49,6 @@
           }
           books.push(book);
         })
-        console.log(books);
         
         //Checks if a request is made
         if (!search) {
@@ -69,10 +66,8 @@
                 return false;
             })
           });
-        console.log(correctGenre);
         //Filters by age
         let relevant = correctGenre.filter(book => book.age == target.age);
-        console.log(relevant);
 
         //Sorts the matching books by author
         if (relevant.length == 0) {
@@ -120,10 +115,8 @@
         for(let i = 0; i < relevant.length; i++) {
           $("#list").append(`<li><h3>${i+1}. <span id="title">${relevant[i].title}</span></h3>&nbsp&nbsp&nbsp&nbsp${relevant[i].author}<br>&nbsp&nbsp&nbsp
             ${convert(relevant[i].genre)}<br>&nbsp&nbsp&nbsp&nbsp${convert(relevant[i].description)}<br><br><li>`);
-          console.log(relevant[0]);
         }
         function convert(arr) {
-          console.log(arr);
           let res = '';
           arr.forEach(element => res = res.concat(` ${element}`));
           return res.substring(1);

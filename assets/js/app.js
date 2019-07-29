@@ -14,15 +14,8 @@
   firebase.initializeApp(config);
   let database = firebase.database();
 
-  //FIX THIS: ensure you always start with form data section
-    database.ref().on('value', function(snapshot) {
-      if (!snapshot.val() || !Object.keys(snapshot.val()).includes('form data')) {
-        console.log('not found');
-        database.ref().child("form data").set(true);
-        return false;
-      }
-      else console.log('found!');
-    });
+  // Initialize entries
+  database.ref().child("form data").set(true);
 
     $("#submit").on("click", function(event) {
         event.preventDefault();

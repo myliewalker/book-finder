@@ -28,14 +28,14 @@
             "name": "Launch index.html",
             "type": "chrome",
             "request": "launch",
-            "file": "${workspaceFolder}/pages/index.html"
+            "file": "${workspaceFolder}/index.html"
         },
 
         {
             "name": "Launch display.html",
             "type": "chrome",
             "request": "launch",
-            "file": "${workspaceFolder}/pages/display.html"
+            "file": "${workspaceFolder}/display.html"
         }
     ]
 }
