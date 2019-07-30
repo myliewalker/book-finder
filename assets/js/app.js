@@ -90,7 +90,13 @@
           nage = 'adult';
         }
         let ndescription = [];
-        if ($("#ndescription").val() != '') ndescription.push($("#ndescription").val());
+        if ($("#ndescription").val() != '') {
+          let desc = {
+            source: "Users",
+            review: $("#ndescription").val()
+          }
+          ndescription.push(desc);
+        }
         let count = 0;
         if (ntitle) count++;
         if (tempAuthor) count++;
@@ -113,13 +119,36 @@
         }
 
       let newBook = {
-        title: ntitle,
-        author: nauthor,
-        genre: ngenre,
+        title: formatStr(ntitle),
+        author: formatStr(nauthor),
+        genre: formatStr(ngenre),
         age: nage,
-        description: ndescription
+        description: {
+          source: formatStr(ngenre.source),
+          review: formatArr(ngenre.review)
+        }
       }
       console.log(newBook);
+
+      // Formats appearance
+      function formatStr(str) {
+        let result = "";
+        for (let word of str.split(' ')) {
+          result = result.concat(" ");
+          let temp = word.substring(0,1).toUpperCase();
+          temp = temp.concat(word.substring(1).toLowerCase());
+          result = result.concat(temp);
+        }
+        return result.substring(1);
+      }
+      function formatArr(arr) {
+        let result = [];
+        for (let element of arr) {
+          result.push(element.charAt(0).toUpperCase().concat(element.substring(1)));
+        }
+        return result;
+      }
+
       //Checks if the book is in the database
       if (count == 5) {
         let completed = false;
@@ -136,7 +165,7 @@
               snapshot.child(key).val().description.forEach(d => newDescription.push(d));
               database.ref().child(key).update({genre: newGenre, description: newDescription});
               end();
-              if (search) window.location.href="../pages/display.html";
+              // if (search) window.location.href="../display.html";
               return false;
             }
           }
@@ -145,7 +174,7 @@
             completed = true;
             database.ref().push(newBook);
             end();
-            if (search) window.location.href="../pages/display.html";
+            // if (search) window.location.href="../display.html";
             return false;
           }
         });
@@ -153,7 +182,7 @@
       else {
         newBook = false;
         end();
-        if (search) window.location.href="../pages/display.html";
+        // if (search) window.location.href="../display.html";
         return false;
       }
 

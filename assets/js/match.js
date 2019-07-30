@@ -15,10 +15,11 @@
     firebase.initializeApp(config);
     let database = firebase.database();
 
+    $("#submit").on("click", function(event) {
       event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
-        if (!snapshot.val() || snapshot.getChildrenCount() <= 1) {
+        if (!snapshot.val() || snapshot.numChildren() <= 1) {
           console.log('No books are in the database');
           return false;
         }
@@ -88,28 +89,28 @@
         }
 
         //Formats appearance
-        relevant.forEach(function(book) {
-            book.title = formatStr(book.title);
-            book.author = formatStr(book.author);
-            book.description = formatArr(book.description);
-        });
-        function formatStr(str) {
-            let result = "";
-            for (let word of str.split(' ')) {
-              result = result.concat(" ");
-              let temp = word.substring(0,1).toUpperCase();
-              temp = temp.concat(word.substring(1).toLowerCase());
-              result = result.concat(temp);
-            }
-            return result.substring(1);
-        }
-        function formatArr(arr) {
-          let result = [];
-          for (let element of arr) {
-            result.push(element.charAt(0).toUpperCase().concat(element.substring(1)));
-          }
-          return result;
-        }
+        // relevant.forEach(function(book) {
+        //     book.title = formatStr(book.title);
+        //     book.author = formatStr(book.author);
+        //     book.description = formatArr(book.description);
+        // });
+        // function formatStr(str) {
+        //     let result = "";
+        //     for (let word of str.split(' ')) {
+        //       result = result.concat(" ");
+        //       let temp = word.substring(0,1).toUpperCase();
+        //       temp = temp.concat(word.substring(1).toLowerCase());
+        //       result = result.concat(temp);
+        //     }
+        //     return result.substring(1);
+        // }
+        // function formatArr(arr) {
+        //   let result = [];
+        //   for (let element of arr) {
+        //     result.push(element.charAt(0).toUpperCase().concat(element.substring(1)));
+        //   }
+        //   return result;
+        // }
       
         //Displays relevant books
         for(let i = 0; i < relevant.length; i++) {
@@ -127,3 +128,5 @@
     return false;
 
   });
+
+});

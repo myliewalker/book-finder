@@ -1,11 +1,26 @@
 .jumbotron {
-    background-color: #f3f3f3;
-    color: #d3a342;
-    font-weight: 100px;
-    font-weight: bolder;
-    font-size: 60px;
-    padding-bottom: 0;
-    height: 80px;
+    background-color: #fcfafa;
+    color: #2e4261;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-family: 'Bodini MT', Didot;
+    height: 50px;
+}
+.container .jumbotron {
+    padding-left: 0;
+    margin-left: 0;
+}
+h1 {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #bfd4f2;
+}
+h1 a {
+    color: #2e4261;
+}
+h1 a:hover {
+    color:#3e434a;
+    text-decoration: none;
 }
 
 h2 {
@@ -22,7 +37,7 @@ h3 #title {
 
 body {
     padding-top: 0px;
-    background-color: #f3f3f3;
+    background-color: #fcfafa;
     background-position: fixed;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -50,7 +65,7 @@ body {
     padding-top: 50px;
     font-weight: 800;
     font-size: 30px;
-    color: rgb(136, 27, 54);
+    color: #bfd4f2;
     text-align: center;
     padding-bottom: 20px;
 }
@@ -58,25 +73,25 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 50px;
-    color: rgb(136, 27, 54);
+    color: #bfd4f2;
 }
 .desc {
     font-size: 20px;
     font-weight: bolder;
-    color: rgb(136, 27, 54);
+    color: #bfd4f2;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 /* Form format */
 .panel-default>.panel-heading {
-    border-color:rgb(136, 27, 54);
-    border-style: dotted;
-    border-width: 1.5px;
-    border-radius: 25px;
+    /* border-color:#2e4261; */
+    border-style: none;
+    /* border-width: 1.5px;
+    border-radius: 0px; */
 
-    background-color: #c2883c85;
-    color:rgb(250, 250, 250);
+    background-color: #fcfafa;
+    color:#2e4261;
     font-family: 'Bodini MT', Didot;
     text-align: center;
 }
@@ -89,14 +104,14 @@ body {
 
 .col-lg-6, .panel, .panel-default{
     outline: none;
-    background-color: #f3f3f3;
+    background-color: #fcfafa;
 }
 
 .form-control {
     border-style: solid;
     border-width: 2px;
     border-radius: 0px;
-    border-color: rgb(223, 120, 120);
+    border-color: #bfd4f2;
     background-color: rgb(250, 250, 250);
     position: relative;
 }
@@ -108,7 +123,7 @@ body {
     border-style: solid;
     border-width: 2px;
     border-radius: 0px;
-    border-color: rgb(136, 27, 54);
+    border-color: #bfd4f2;
 }
 
 .boxTitle {
@@ -128,7 +143,7 @@ input[type="checkbox"], input[type="radio"]{
     height: 12px;
     width: 12px;
     border: solid;
-    border-color: rgb(223, 120, 120);
+    border-color: #bfd4f2;
     border-width: 1px;
 }
 .checkmark:after, .radio:after {
@@ -146,7 +161,7 @@ input[type="checkbox"], input[type="radio"]{
     width: 5px;
     height: 10px;
     border: solid;
-    border-color: rgb(136, 27, 54);
+    border-color: #bfd4f2;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
@@ -154,14 +169,14 @@ input[type="checkbox"], input[type="radio"]{
 }
 /* button style */
 .btn {
-    background-color: rgb(136, 27, 54);
+    background-color: #bfd4f2;
     color: rgb(250, 250, 250);
-    border-color: rgb(136, 27, 54);
+    border-color: #bfd4f2;
     margin-left: 45%;
     width: 10%;
 }
 .btn:hover {
-    background-color: #d3a342 !important;
+    background-color: #2e4261 !important;
 }
 .btn:active {
     border: none !important;
@@ -169,11 +184,11 @@ input[type="checkbox"], input[type="radio"]{
     -webkit-box-shadow: none;
     box-shadow: none;
 
-    background-color: #d3a342 !important;
+    background-color: #2e4261 !important;
 }
 .btn:focus {
-    background-color: rgb(136, 27, 54);
-    border-color: #d3a342 !important;
+    background-color: #bfd4f2;
+    border-color: #2e4261 !important;
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;

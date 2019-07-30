@@ -28,7 +28,7 @@ database.ref().once('value', function(snapshot) {
 let books = [];
 let titles = [];
 
-let scrapeGuardian = new Promise(resolve => {
+let guardian = new Promise(resolve => {
     let num = 1;
     let url = 'https://www.theguardian.com/books/2015/aug/17/the-100-best-novels-written-in-english-the-full-list';
 
@@ -47,11 +47,23 @@ let scrapeGuardian = new Promise(resolve => {
             let description = rest.substring(0, rest.indexOf("\n"));
 
             let book = {
-                title: title.toLowerCase(),
-                author: author.toLowerCase(),
-                description: [],
+                title: formatStr(title),
+                author: formatStr(author),
+                description: []
             }
             book.description.push({review: description, source: 'The Guardian'});
+            
+            // Format book
+            function formatStr(str) {
+                let result = "";
+                for (let word of str.split(' ')) {
+                  result = result.concat(" ");
+                  let temp = word.substring(0,1).toUpperCase();
+                  temp = temp.concat(word.substring(1).toLowerCase());
+                  result = result.concat(temp);
+                }
+                return result.substring(1);
+            }
 
             addBook(book);
             num++;
@@ -64,6 +76,18 @@ let scrapeGuardian = new Promise(resolve => {
         }
     }, 2000);
 });
+
+let time = new Promise(resolve => {
+    let url = 'http://entertainment.time.com/2005/10/16/all-time-100-novels/slidfe/all/';
+    axios.get(url).then(response => {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const text = $.text();
+
+        let title = $('i');
+        console.log(text);
+    })
+})
 
 function addBook(book) {
     if (titles.includes(book.title)) {
@@ -81,7 +105,7 @@ function addBook(book) {
 }
 
 function run() {
-    scrapeGuardian.then(() => {
+    guardian.then(() => {
         console.log(books.length);
         books.forEach(book => database.ref().push(book));
         setTimeout(function() {
@@ -89,3 +113,5 @@ function run() {
         }, 3000);
     });
 }
+
+time.then(() => console.log('done'));
