@@ -15,14 +15,14 @@ let database = fb.database();
 
 // Check if empty
 database.ref().once('value', function(snapshot) {
-    if (!snapshot.val() || (snapshot.numChildren() == 1) && snapshot.hasChild("form data")) {
-        console.log('running');
-        run();
-    }
-    else {
-        console.log('Children: ' + snapshot.numChildren());
-        process.exit();
-    }
+    // if (!snapshot.val() || (snapshot.numChildren() == 1) && snapshot.hasChild("form data")) {
+    //     console.log('running');
+    //     run();
+    // }
+    // else {
+    //     process.exit();
+    // }
+    run();
 });
 
 let books = [];
@@ -52,18 +52,6 @@ let guardian = new Promise(resolve => {
                 description: []
             }
             book.description.push({review: description, source: 'The Guardian'});
-            
-            // Format book
-            function formatStr(str) {
-                let result = "";
-                for (let word of str.split(' ')) {
-                  result = result.concat(" ");
-                  let temp = word.substring(0,1).toUpperCase();
-                  temp = temp.concat(word.substring(1).toLowerCase());
-                  result = result.concat(temp);
-                }
-                return result.substring(1);
-            }
 
             addBook(book);
             num++;
@@ -77,17 +65,78 @@ let guardian = new Promise(resolve => {
     }, 2000);
 });
 
-let time = new Promise(resolve => {
-    let url = 'http://entertainment.time.com/2005/10/16/all-time-100-novels/slidfe/all/';
+let amazon = new Promise(resolve => {
+    let num = 1;
+    let url = 'http://www.harvard.com/shelves/top100/?source=post_page---------------------------';
+
     axios.get(url).then(response => {
         const html = response.data;
         const $ = cheerio.load(html);
         const text = $.text();
+        let rest = text;
 
-        let title = $('i');
-        console.log(text);
-    })
-})
+        console.log(html);
+        process.exit();
+    });
+
+    setTimeout(function() {
+        if (num == 101) {
+            resolve();
+        }
+    }, 2000);
+});
+
+// let time = new Promise(resolve => {
+//     let url = 'http://entertainment.time.com/2005/10/16/all-time-100-novels/slide/the-adventures-of-augie-march-1953-by-saul-bellow/';
+//     axios.get(url).then(response => {
+
+//         const html = response.data;
+//         const $ = cheerio.load(response.data);
+//         let links = [];
+//         links.forEach(link => {
+//             axios.get(url).then(response => {
+//                 const $ = cheerio.load(response.data);
+//                 let head = $('title').text();
+//                 let title = head.substring(0, head.indexOf("(")-1);
+//                 let author = head.substring(head.indexOf("by")+3, head.indexOf("|")-1);
+
+//                 let book = {
+//                     title: formatStr(title),
+//                     author: formatStr(author),
+//                     description: []
+//                 }
+//                 book.description.push({review: description, source: 'Time Magazine'});
+
+//                 addBook(book);
+//             });
+//         });
+
+//         console.log($.text());
+//         process.exit();
+//     })
+// })
+
+// Format book
+function formatStr(str) {
+    let result = "";
+    for (let word of str.split(' ')) {
+        if (word.contains("-")) {
+            result = result.concat(" ")
+            for (let part of word.split("-")) {
+                let temp = part.substring(0, 1).toUpperCase();
+                temp = temp.concat(part.substring(1).toLowerCase());
+                result = result.concat(temp);
+            }
+        }
+        else {
+            result = result.concat(" ");
+            let temp = word.substring(0,1).toUpperCase();
+            temp = temp.concat(word.substring(1).toLowerCase());
+            result = result.concat(temp);
+        }
+    }
+    return result.substring(1);
+}
 
 function addBook(book) {
     if (titles.includes(book.title)) {
@@ -105,13 +154,21 @@ function addBook(book) {
 }
 
 function run() {
-    guardian.then(() => {
-        console.log(books.length);
-        books.forEach(book => database.ref().push(book));
+    // let gcomplete = false;
+    // guardian.then(() => {
+    //     gcomplete = true;
+    // });
+    let acomplete = false;
+    amazon.then(() => {
+        acomplete = true;
         setTimeout(function() {
             process.exit();
         }, 3000);
     });
+    // if (gcomplete) {
+    //     books.forEach(book => database.ref().push(book));
+    // }
+    // setTimeout(function() {
+    //     process.exit();
+    // }, 3000);
 }
-
-time.then(() => console.log('done'));

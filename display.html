@@ -24,16 +24,21 @@
 <body>
 <div class="container">
     <!-- Jumbotron Title -->
-    <div class="container">
+    <div class="container"></div>
     <div class="jumbotron">
-        <h1 class="text-center">Your Perfect Matches!</h1>
-    </div>
+        <h1 class="text-center" style="font-size: 35px">
+            <div class="col-lg-12 text-center">Your Perfect Match</div>
+        </h1>
     </div>
     <!-- Main -->
-    <div class="description">These books fit your description</div>
+    <div class="description">
+        <h2 class="small">These books have been matched with your interests</h2>
+    </div>
     <div class="content-wrap">
         <!-- Displays matching books -->
-        <ol class="list-group row" id="list">
+        <ol class="modal-body row">
+            <li  id="list">
+            </li>
         </ol>
     </div>
 </div>

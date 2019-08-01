@@ -4,7 +4,7 @@
     padding-top: 0px;
     padding-bottom: 0px;
     font-family: 'Bodini MT', Didot;
-    height: 50px;
+    height: 10px;
 }
 .container .jumbotron {
     padding-left: 0;
@@ -14,6 +14,10 @@ h1 {
     padding-top: 20px;
     padding-bottom: 50px;
     border-bottom: 1px solid #bfd4f2;
+    font-weight: bold;
+}
+h1 #display {
+    padding-bottom: 0;
 }
 h1 a {
     color: #2e4261;
@@ -24,12 +28,20 @@ h1 a:hover {
 }
 
 h2 {
-    font-size: 40px;
+    padding-top: 0px;
+    font-size: 35px;
     font-weight: 50px;
+}
+h2 .small {
+    padding-top: 0;
+    font-size: 14px;
+    padding-bottom: 0;
 }
 
 h3 {
-    padding-bottom: 10px;
+    font-weight: bold;
+    padding-top: 15px;
+    padding-bottom: 0;
 }
 h3 #title {
     font-weight: bold;
@@ -123,7 +135,7 @@ body {
     border-style: solid;
     border-width: 2px;
     border-radius: 0px;
-    border-color: #bfd4f2;
+    border-color: #2e4261;
 }
 
 .boxTitle {
@@ -138,15 +150,23 @@ input[type="checkbox"], input[type="radio"]{
 }
 .checkmark, .radio{
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 12px;
-    width: 12px;
+    left: 5px;
+    height: 11px;
+    width: 11px;
     border: solid;
     border-color: #bfd4f2;
     border-width: 1px;
 }
+.checkmark {
+    top: 5px;
+}
+.radio {
+    /* bottom: -1px; */
+    top: -5px;
+}
+
 .checkmark:after, .radio:after {
+    display: inline;
     content: "";
     position: absolute;
     display: none;
@@ -159,9 +179,9 @@ input[type="checkbox"], input[type="radio"]{
     left: 2px;
     top: 0px;
     width: 5px;
-    height: 10px;
+    height: 8px;
     border: solid;
-    border-color: #bfd4f2;
+    border-color: #2e4261;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
@@ -174,6 +194,7 @@ input[type="checkbox"], input[type="radio"]{
     border-color: #bfd4f2;
     margin-left: 45%;
     width: 10%;
+    border-color: #2e4261 !important;
 }
 .btn:hover {
     background-color: #2e4261 !important;
@@ -196,7 +217,8 @@ input[type="checkbox"], input[type="radio"]{
 
 /* Formats display */
 #list {
-    padding-top: 10px;
-    margin-left: 30%;
+    padding-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
     font-size: 20px;
 }

@@ -15,7 +15,6 @@
     firebase.initializeApp(config);
     let database = firebase.database();
 
-    $("#submit").on("click", function(event) {
       event.preventDefault();
       console.log('display ready!');
       database.ref().on('value', function(snapshot) {
@@ -63,12 +62,12 @@
         //Filters by genre
         let correctGenre = books.filter(book => function () {
             book.genre.some(g => function() {
-                if (g == target.genre) return true;
+                if (g == target.genre || !target.genre) return true;
                 return false;
             })
           });
         //Filters by age
-        let relevant = correctGenre.filter(book => book.age == target.age);
+        let relevant = correctGenre.filter(book => book.age == target.age || !book.age);
 
         //Sorts the matching books by author
         if (relevant.length == 0) {
@@ -87,46 +86,38 @@
             if (a < b) return -1;
             if (a == b) return 0;
         }
-
-        //Formats appearance
-        // relevant.forEach(function(book) {
-        //     book.title = formatStr(book.title);
-        //     book.author = formatStr(book.author);
-        //     book.description = formatArr(book.description);
-        // });
-        // function formatStr(str) {
-        //     let result = "";
-        //     for (let word of str.split(' ')) {
-        //       result = result.concat(" ");
-        //       let temp = word.substring(0,1).toUpperCase();
-        //       temp = temp.concat(word.substring(1).toLowerCase());
-        //       result = result.concat(temp);
-        //     }
-        //     return result.substring(1);
-        // }
-        // function formatArr(arr) {
-        //   let result = [];
-        //   for (let element of arr) {
-        //     result.push(element.charAt(0).toUpperCase().concat(element.substring(1)));
-        //   }
-        //   return result;
-        // }
+        console.log(relevant);
+        display();
       
-        //Displays relevant books
-        for(let i = 0; i < relevant.length; i++) {
-          $("#list").append(`<li><h3>${i+1}. <span id="title">${relevant[i].title}</span></h3>&nbsp&nbsp&nbsp&nbsp${relevant[i].author}<br>&nbsp&nbsp&nbsp
-            ${convert(relevant[i].genre)}<br>&nbsp&nbsp&nbsp&nbsp${convert(relevant[i].description)}<br><br><li>`);
-        }
-        function convert(arr) {
+        // Displays relevant books
+        function display() {
+          for(let i = 0; i < relevant.length; i++) {
+              $("#list").append(`<div class="col-sm-1" style="text-align:left"><h3>${i+1}.</h3></div>`)
+              if (relevant[i].genre) {
+                  $("#list").append(`<div class="col-lg-11"><h3><span id="title">${relevant[i].title}</span></h3>${relevant[i].author}<br>
+                  ${convert(relevant[i].description)}</div>`)
+              }
+              else {
+                  $("#list").append(`<div class="col-lg-11" id="body"><h3><span id="title">${relevant[i].title}</span></h3>${relevant[i].author}<br>
+                  ${transform(relevant[i].description)}</div>`)
+              }
+          }   
+      }
+      function convert(arr) {
           let res = '';
           arr.forEach(element => res = res.concat(` ${element}`));
           return res.substring(1);
-        }
+      }
+      function transform(desc) {
+          let res = '';
+          desc.forEach(d => {
+              res = res.concat(`\n${d.source}: ${d.review}`);
+          });
+          return res.substring(1);
+      }
 
     });
 
     return false;
-
-  });
 
 });

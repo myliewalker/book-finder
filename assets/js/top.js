@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     console.log('top ready');
-    
+
     let config = {
         apiKey: "AIzaSyBzvvSTdq17EAnncHWZ6YpHTykWWUs_Qvs",
         authDomain: "book-finder-6cc03.firebaseapp.com",
@@ -17,6 +17,7 @@ $(document).ready(function() {
     let top = [];
     database.ref().on('value', function(snapshot) {
         let keys = Object.keys(snapshot.val());
+        if (keys.includes("form data")) keys.pop();
         if (keys.length <= 100) {
             keys.forEach(key => top.push(snapshot.child(key).val()))
         }
@@ -52,15 +53,15 @@ $(document).ready(function() {
     }
 
     function display() {
-        console.log(top.length);
         for(let i = 0; i < top.length; i++) {
+            $("#list").append(`<div class="col-sm-1" style="text-align:left"><h3>${i+1}.</h3></div>`)
             if (top[i].genre) {
-                $("#list").append(`<li><h3>${i+1}. <span id="title">${top[i].title}</span></h3>&nbsp&nbsp&nbsp&nbsp${top[i].author}<br>&nbsp&nbsp&nbsp
-                ${convert(top[i].genre)}<br>&nbsp&nbsp&nbsp&nbsp${transform(top[i].description)}<br><br><li>`);
+                $("#list").append(`<div class="col-lg-11"><h3><span id="title">${top[i].title}</span></h3>${top[i].author}<br>
+                ${convert(top[i].description)}</div>`)
             }
             else {
-                $("#list").append(`<li><h3>${i+1}. <span id="title">${top[i].title}</span></h3>&nbsp&nbsp&nbsp&nbsp${top[i].author}<br>&nbsp&nbsp&nbsp
-                ${transform(top[i].description)}<br><br><li>`);
+                $("#list").append(`<div class="col-lg-11" id="body"><h3><span id="title">${top[i].title}</span></h3>${top[i].author}<br>
+                ${transform(top[i].description)}</div>`)
             }
         }   
     }
@@ -71,7 +72,9 @@ $(document).ready(function() {
     }
     function transform(desc) {
         let res = '';
-        desc.forEach(d => res = res.concat(`\n${d.source}: ${d.review}`));
+        desc.forEach(d => {
+            res = res.concat(`\n${d.source}: ${d.review}`);
+        });
         return res.substring(1);
     }
 });

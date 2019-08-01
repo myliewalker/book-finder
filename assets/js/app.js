@@ -117,27 +117,39 @@
           alert("Please enter the author's first and last name");
           return false;
         }
-
-      let newBook = {
-        title: formatStr(ntitle),
-        author: formatStr(nauthor),
-        genre: formatStr(ngenre),
-        age: nage,
-        description: {
-          source: formatStr(ngenre.source),
-          review: formatArr(ngenre.review)
+      
+        let newBook;
+        if (count == 5) {
+          newBook = {
+            title: formatStr(ntitle),
+            author: formatStr(nauthor),
+            genre: formatStr(ngenre),
+            age: nage,
+            description: {
+              source: formatStr(ngenre.source),
+              review: formatArr(ngenre.review)
+            }
+          }
         }
-      }
-      console.log(newBook);
 
       // Formats appearance
       function formatStr(str) {
         let result = "";
         for (let word of str.split(' ')) {
-          result = result.concat(" ");
-          let temp = word.substring(0,1).toUpperCase();
-          temp = temp.concat(word.substring(1).toLowerCase());
-          result = result.concat(temp);
+          if (word.contains("-")) {
+            result = result.concat(" ")
+              for (let part of word.split("-")) {
+                let temp = part.substring(0, 1).toUpperCase();
+                temp = temp.concat(part.substring(1).toLowerCase());
+                result = result.concat(temp);
+              }
+          }
+          else {
+            result = result.concat(" ");
+            let temp = word.substring(0,1).toUpperCase();
+            temp = temp.concat(word.substring(1).toLowerCase());
+            result = result.concat(temp);
+          }
         }
         return result.substring(1);
       }
@@ -165,7 +177,7 @@
               snapshot.child(key).val().description.forEach(d => newDescription.push(d));
               database.ref().child(key).update({genre: newGenre, description: newDescription});
               end();
-              // if (search) window.location.href="../display.html";
+              if (search) window.location.href="display.html";
               return false;
             }
           }
@@ -174,7 +186,7 @@
             completed = true;
             database.ref().push(newBook);
             end();
-            // if (search) window.location.href="../display.html";
+            if (search) window.location.href="display.html";
             return false;
           }
         });
@@ -182,7 +194,7 @@
       else {
         newBook = false;
         end();
-        // if (search) window.location.href="../display.html";
+        if (search) window.location.href="display.html";
         return false;
       }
 
